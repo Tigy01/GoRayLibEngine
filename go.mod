@@ -1,4 +1,4 @@
-module mygame
+module myengine
 
 go 1.23.5
 
