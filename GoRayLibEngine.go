@@ -49,7 +49,7 @@ func EngineProcess() {
 			(*n).Draw()
 		},
 	)
-    nodes2d.UpdateScenePositions(*CurrentScene)
+    nodes2d.UpdateScenePositions(CurrentScene)
 }
 
 func EngineUpdate() {

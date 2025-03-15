@@ -1,6 +1,7 @@
 package sprites
 
 import (
+
 	"github.com/Tigy01/GoRayLibEngine/enginenodes/nodes2d"
 	"github.com/Tigy01/GoRayLibEngine/nodes"
 	"github.com/Tigy01/GoRayLibEngine/scenes"
@@ -21,7 +22,8 @@ func Init(path string, position rl.Vector2) *Sprite {
 	}
 }
 
-func (s Sprite) Process(delta float32) {}
+func (s Sprite) Process(delta float32) {
+}
 
 func (s Sprite) Draw() {
 	rl.DrawTexturePro(
