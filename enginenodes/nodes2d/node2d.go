@@ -18,11 +18,10 @@ func Init(position rl.Vector2) *Node2d {
 	}
 }
 
-func (n Node2d) Process(delta float32) {
-}
-func (n Node2d) Input()   {}
-func (n Node2d) Draw()    {}
-func (n Node2d) Destroy() {}
+func (n Node2d) Process(delta float32) {}
+func (n Node2d) Input()                {}
+func (n Node2d) Draw()                 {}
+func (n Node2d) Destroy()              {}
 
 func UpdateScenePositions(currentScene *scenes.Scene) {
 	startPosition := rl.NewVector2(0, 0)
