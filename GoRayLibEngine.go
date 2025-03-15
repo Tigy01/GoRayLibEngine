@@ -8,13 +8,13 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-var CurrentScene *scenes.Scene
+var CurrentScene scenes.Scene
 
 func EngineInit(windowSize rl.Vector2, windowTitle string) {
 	rl.InitWindow(int32(windowSize.X), int32(windowSize.Y), "Test Raylib")
 }
 
-func EngineStart(scene *scenes.Scene) {
+func EngineStart(scene scenes.Scene) {
 	CurrentScene = scene
 	rl.SetTargetFPS(60)
 
@@ -22,7 +22,7 @@ func EngineStart(scene *scenes.Scene) {
 }
 
 func EngineStop() {
-	(*CurrentScene).GetChildrenTree().DoOnEveryNode(
+	(CurrentScene).GetChildrenTree().DoOnEveryNode(
 		func(n *nodes.Node) {
 			(*n).Destroy()
 		},
@@ -42,7 +42,7 @@ func EngineLoop() {
 
 func EngineProcess() {
 	rl.ClearBackground(rl.White)
-	(*CurrentScene).GetChildrenTree().DoOnEveryNode(
+	(CurrentScene).GetChildrenTree().DoOnEveryNode(
 		func(n *nodes.Node) {
 			(*n).Input()
 			(*n).Process(rl.GetFrameTime())
@@ -56,8 +56,8 @@ func EngineUpdate() {
 	EngineProcess()
 }
 
-func ChangeScene(scene *scenes.Scene) {
-	(*CurrentScene).GetChildrenTree().DoOnEveryNode(
+func ChangeScene(scene scenes.Scene) {
+	(CurrentScene).GetChildrenTree().DoOnEveryNode(
 		func(n *nodes.Node) {
 			(*n).Destroy()
 		},

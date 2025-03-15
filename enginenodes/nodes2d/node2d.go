@@ -23,11 +23,11 @@ func (n Node2d) Input()                {}
 func (n Node2d) Draw()                 {}
 func (n Node2d) Destroy()              {}
 
-func UpdateScenePositions(currentScene *scenes.Scene) {
+func UpdateScenePositions(currentScene scenes.Scene) {
 	startPosition := rl.NewVector2(0, 0)
 	node2dCount := 0
 
-	for _, child := range (*currentScene).GetChildrenTree().Children {
+	for _, child := range (currentScene).GetChildrenTree().Children {
 		if node2dCount > 1 {
 			panic("Node2d Count May Not Exceed one per scene instance")
 		}
@@ -39,7 +39,7 @@ func UpdateScenePositions(currentScene *scenes.Scene) {
 		node2dCount += 1
 	}
 
-	for _, child := range (*currentScene).GetChildrenTree().Children {
+	for _, child := range (currentScene).GetChildrenTree().Children {
 		if _, ok := (*child.Value).(*Node2d); !ok {
 			UpdateTreePositions(child, startPosition)
 		}
