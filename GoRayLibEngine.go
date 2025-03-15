@@ -1,6 +1,7 @@
-package GRLEngine 
+package GRLEngine
 
 import (
+	"github.com/Tigy01/GoRayLibEngine/enginenodes/nodes2d"
 	"github.com/Tigy01/GoRayLibEngine/nodes"
 	"github.com/Tigy01/GoRayLibEngine/scenes"
 
@@ -48,6 +49,7 @@ func EngineProcess() {
 			(*n).Draw()
 		},
 	)
+    nodes2d.UpdateScenePositions(CurrentScene)
 }
 
 func EngineUpdate() {
