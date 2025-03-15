@@ -1,4 +1,4 @@
-package GRLEngine
+package GoRayLibEngine 
 
 import (
 	"github.com/Tigy01/GoRayLibEngine/enginenodes/nodes2d"
