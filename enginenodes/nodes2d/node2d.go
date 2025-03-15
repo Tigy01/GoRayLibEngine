@@ -16,7 +16,7 @@ type Node2d struct {
 func Init(position rl.Vector2) *Node2d {
 	return &Node2d{
 		LocalPosition:  position,
-		GlobalPosition: position,
+		GlobalPosition: rl.NewVector2(0, 0),
 	}
 }
 
@@ -32,19 +32,25 @@ func UpdateScenePositions(currentScene scenes.Scene) {
 		if node2dCount > 1 {
 			panic("Node2d Count May Not Exceed one per scene instance")
 		}
+
 		if node2d, ok := (*child.Value).(*Node2d); ok {
 			node2d.GlobalPosition = rl.Vector2Add(node2d.LocalPosition, startPosition)
 			startPosition = node2d.GlobalPosition
 		}
-		UpdateTreePositions(child.Children, startPosition)
+		for _, tree := range child.Children {
+			UpdateTreePositions(tree, startPosition)
+		}
+
 		node2dCount += 1
 	}
 }
 
-func UpdateTreePositions(trees []*scenes.Tree, startPosition rl.Vector2) {
-	for _, tree := range trees {
-		if node2d, ok := (*tree.Value).(*Node2d); ok {
-			node2d.GlobalPosition = rl.Vector2Add(startPosition, node2d.LocalPosition)
-		}
+func UpdateTreePositions(tree *scenes.Tree, startPosition rl.Vector2) {
+	if node2d, ok := (*tree.Value).(*Node2d); ok {
+		node2d.GlobalPosition = rl.Vector2Add(startPosition, node2d.LocalPosition)
+        startPosition = node2d.GlobalPosition
+	}
+	for _, subtree := range tree.Children {
+		UpdateTreePositions(subtree, startPosition)
 	}
 }
