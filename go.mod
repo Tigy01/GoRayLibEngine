@@ -1,4 +1,4 @@
-module myengine
+module github.com/Tigy01/GoRayLibEngine
 
 go 1.23.5
 
