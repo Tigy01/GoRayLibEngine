@@ -1,7 +1,7 @@
 package scenes
 
 import (
-	"mygame/pkg/engine/nodes"
+	"myengine/pkg/engine/nodes"
 )
 
 type Scene interface {

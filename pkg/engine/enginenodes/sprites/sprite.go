@@ -1,9 +1,9 @@
 package sprites
 
 import (
-	"mygame/pkg/engine/enginenodes/nodes2d"
-	"mygame/pkg/engine/nodes"
-	"mygame/pkg/engine/scenes"
+	"myengine/pkg/engine/enginenodes/nodes2d"
+	"myengine/pkg/engine/nodes"
+	"myengine/pkg/engine/scenes"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )

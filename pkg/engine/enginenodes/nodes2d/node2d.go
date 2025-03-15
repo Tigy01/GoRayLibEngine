@@ -1,7 +1,7 @@
 package nodes2d
 
 import (
-	"mygame/pkg/engine/nodes"
+	"myengine/pkg/engine/nodes"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
