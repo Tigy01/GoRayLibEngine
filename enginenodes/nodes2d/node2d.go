@@ -1,7 +1,7 @@
 package nodes2d
 
 import (
-	"nodes"
+	"github.com/Tigy01/GoRayLibEngine/nodes"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )

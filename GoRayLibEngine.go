@@ -1,8 +1,8 @@
-package myengine 
+package GoRayLibEngine 
 
 import (
-	"nodes"
-	"scenes"
+	"github.com/Tigy01/GoRayLibEngine/nodes"
+	"github.com/Tigy01/GoRayLibEngine/scenes"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
