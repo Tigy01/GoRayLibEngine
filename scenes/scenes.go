@@ -1,7 +1,7 @@
 package scenes
 
 import (
-	"github.com/Tigy01/GoRayLibEngine/nodes"
+	"nodes"
 )
 
 type Scene interface {

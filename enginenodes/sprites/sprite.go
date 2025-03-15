@@ -1,9 +1,9 @@
 package sprites
 
 import (
-    "github.com/Tigy01/GoRayLibEngine/nodes"
-    "github.com/Tigy01/GoRayLibEngine/scenes"
-    "github.com/Tigy01/GoRayLibEngine/enginenodes/nodes2d"
+	"enginenodes/nodes2d"
+	"nodes"
+	"scenes"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
