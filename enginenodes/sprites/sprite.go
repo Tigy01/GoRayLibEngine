@@ -15,10 +15,10 @@ type Sprite struct {
 	Hidden  bool
 }
 
-func (Sprite) Init(path string, position, scale rl.Vector2) *Sprite {
+func (Sprite) Init(path string, node2d *nodes2d.Node2d) *Sprite {
 	return &Sprite{
 		Texture: rl.LoadTexture(path),
-		Node2d:  nodes2d.Init(position),
+		Node2d:  node2d,
 	}
 }
 
