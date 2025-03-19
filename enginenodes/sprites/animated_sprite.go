@@ -1,6 +1,7 @@
 package sprites
 
 import (
+	"github.com/Tigy01/GoRayLibEngine/nodes"
 	"github.com/Tigy01/GoRayLibEngine/scenes"
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -45,5 +46,11 @@ func (s AnimatedSprite) Process(delta float32) {}
 func (s *AnimatedSprite) GetChildrenTree() scenes.Hierarchy {
 	return scenes.Hierarchy{
 		Scene: scenes.AsScenePtr(s),
+		Children: []*scenes.Tree{
+			{
+				Value:    nodes.GetNodePtr(s.Sprite),
+				Children: s.Sprite.GetChildrenTree().Children,
+			},
+		},
 	}
 }
