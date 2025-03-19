@@ -1,4 +1,4 @@
-package GoRayLibEngine 
+package GoRayLibEngine
 
 import (
 	"github.com/Tigy01/GoRayLibEngine/enginenodes/nodes2d"
@@ -49,7 +49,8 @@ func EngineProcess() {
 			(*n).Draw()
 		},
 	)
-    nodes2d.UpdateScenePositions(CurrentScene)
+	nodes2d.UpdateScenePositions(CurrentScene)
+	nodes2d.UpdateSceneScale(CurrentScene)
 }
 
 func EngineUpdate() {

@@ -14,7 +14,7 @@ type Sprite struct {
 	texture rl.Texture2D
 }
 
-func Init(path string, position rl.Vector2) *Sprite {
+func (Sprite) Init(path string, position rl.Vector2) *Sprite {
 	return &Sprite{
 		texture: rl.LoadTexture(path),
 		Node2d:  nodes2d.Init(position),
@@ -27,7 +27,12 @@ func (s *Sprite) Center() {
 	w := s.texture.Width
 	h := s.texture.Height
 
-	s.Offset(rl.NewVector2(0-float32(w)/2, 0-float32(h)/2))
+	s.Offset(
+		rl.NewVector2(
+			0-float32(w)/2,
+			0-float32(h)/2,
+		),
+	)
 }
 
 func (s *Sprite) Offset(offset rl.Vector2) {
@@ -58,15 +63,17 @@ func (s *Sprite) GetChildrenTree() scenes.Hierarchy {
 
 func (s Sprite) getDestRec() rl.Rectangle {
 	return rl.NewRectangle(
-		s.Node2d.GlobalPosition.X, s.Node2d.GlobalPosition.Y, 100, 100,
+		s.Node2d.GlobalPosition.X, s.Node2d.GlobalPosition.Y, s.LocalScale.X, s.LocalScale.Y,
 	)
 }
 
 func (s Sprite) getSourceRec() rl.Rectangle {
 	return rl.NewRectangle(0, 0, float32(s.texture.Width), float32(s.texture.Height))
 }
+
 func (s *Sprite) Destroy() {
 	rl.UnloadTexture(s.texture)
 }
+
 func (s Sprite) Input() {
 }

@@ -7,15 +7,24 @@ import (
 )
 
 type Node2d struct {
-	LocalPosition  rl.Vector2
+	LocalPosition rl.Vector2
+	LocalScale    rl.Vector2
+
 	GlobalPosition rl.Vector2
+	GlobalScale    rl.Vector2
 }
 
 func Init(position rl.Vector2) *Node2d {
 	return &Node2d{
 		LocalPosition:  position,
 		GlobalPosition: rl.NewVector2(0, 0),
+		LocalScale:     rl.NewVector2(1, 1),
+		GlobalScale:    rl.NewVector2(1, 1),
 	}
+}
+
+func (n *Node2d) SetScale(newScale rl.Vector2) {
+	n.LocalScale = newScale
 }
 
 func (n Node2d) Process(delta float32) {}
@@ -56,6 +65,43 @@ func UpdateTreePositions(tree *scenes.Tree, startPosition rl.Vector2) {
 	for _, subtree := range tree.Children {
 		if _, ok := (*subtree.Value).(*Node2d); !ok {
 			UpdateTreePositions(subtree, startPosition)
+		}
+	}
+}
+
+func UpdateSceneScale(currentScene *scenes.Scene) {
+	startScale := rl.NewVector2(1, 1)
+	node2dCount := 0
+
+	for _, child := range (*currentScene).GetChildrenTree().Children {
+		if node2dCount > 1 {
+			panic("Node2d Count May Not Exceed one per scene instance")
+		}
+
+		if node2d, ok := (*child.Value).(*Node2d); ok {
+			node2d.GlobalScale = node2d.LocalScale
+			startScale = node2d.GlobalScale
+		}
+		node2dCount += 1
+	}
+
+	for _, child := range (*currentScene).GetChildrenTree().Children {
+		if _, ok := (*child.Value).(*Node2d); !ok {
+			UpdateTreeScale(child, startScale)
+		}
+	}
+}
+
+func UpdateTreeScale(tree *scenes.Tree, startScale rl.Vector2) {
+	for _, subtree := range tree.Children {
+		if node2d, ok := (*subtree.Value).(*Node2d); ok {
+			node2d.GlobalScale = rl.Vector2Multiply(startScale, node2d.LocalScale)
+			startScale = node2d.GlobalScale
+		}
+	}
+	for _, subtree := range tree.Children {
+		if _, ok := (*subtree.Value).(*Node2d); !ok {
+			UpdateTreeScale(subtree, startScale)
 		}
 	}
 }
