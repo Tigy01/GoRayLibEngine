@@ -1,7 +1,6 @@
 package sprites
 
 import (
-
 	"github.com/Tigy01/GoRayLibEngine/enginenodes/nodes2d"
 	"github.com/Tigy01/GoRayLibEngine/nodes"
 	"github.com/Tigy01/GoRayLibEngine/scenes"
@@ -22,7 +21,17 @@ func Init(path string, position rl.Vector2) *Sprite {
 	}
 }
 
-func (s Sprite) Process(delta float32) {
+func (s Sprite) Process(delta float32) {}
+
+func (s *Sprite) Center() {
+	w := s.texture.Width
+	h := s.texture.Height
+
+	s.Offset(rl.NewVector2(0-float32(w)/2, 0-float32(h)/2))
+}
+
+func (s *Sprite) Offset(offset rl.Vector2) {
+	s.Node2d.LocalPosition = rl.Vector2Add(s.Node2d.LocalPosition, offset)
 }
 
 func (s Sprite) Draw() {
@@ -54,7 +63,7 @@ func (s Sprite) getDestRec() rl.Rectangle {
 }
 
 func (s Sprite) getSourceRec() rl.Rectangle {
-	return rl.NewRectangle(0, 0, 16, 16)
+	return rl.NewRectangle(0, 0, float32(s.texture.Width), float32(s.texture.Height))
 }
 func (s *Sprite) Destroy() {
 	rl.UnloadTexture(s.texture)
