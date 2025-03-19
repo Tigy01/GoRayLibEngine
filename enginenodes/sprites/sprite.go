@@ -27,8 +27,8 @@ func (s Sprite) Process(delta float32) {}
 func (s *Sprite) Center() {
 	s.Offset(
 		rl.NewVector2(
-			(0-float32(s.Texture.Width)/2) * s.LocalScale.X,
-			(0-float32(s.Texture.Height)/2) * s.LocalScale.Y,
+			(0 - float32(s.Texture.Width)/2),
+			(0 - float32(s.Texture.Height)/2),
 		),
 	)
 }

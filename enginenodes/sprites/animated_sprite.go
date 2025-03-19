@@ -20,6 +20,15 @@ func (AnimatedSprite) Init(sprite *Sprite, currentFrame, frameCount int) *Animat
 	}
 }
 
+func (s *AnimatedSprite) Center() {
+	s.Offset(
+		rl.NewVector2(
+			(0 - s.getFrameSize()/2),
+			(0 - float32(s.Texture.Height)/2),
+		),
+	)
+}
+
 func (s *AnimatedSprite) Destroy() {}
 
 func (s AnimatedSprite) Draw() {
@@ -36,11 +45,14 @@ func (s AnimatedSprite) Draw() {
 	)
 }
 
-func (s AnimatedSprite) getSourceRec() rl.Rectangle {
-	frameSize := float32(s.Texture.Width) / float32(s.NumberOfFrames)
-	framePosition := frameSize * float32(s.CurrentFrame)
+func (s AnimatedSprite) getFrameSize() (frameSize float32) {
+	frameSize = float32(s.Texture.Width) / float32(s.NumberOfFrames)
+	return
+}
 
-	return rl.NewRectangle(framePosition, 0, frameSize, float32(s.Texture.Height))
+func (s AnimatedSprite) getSourceRec() rl.Rectangle {
+	framePosition := s.getFrameSize() * float32(s.CurrentFrame)
+	return rl.NewRectangle(framePosition, 0, s.getFrameSize(), float32(s.Texture.Height))
 }
 
 func (s AnimatedSprite) Input() {}
