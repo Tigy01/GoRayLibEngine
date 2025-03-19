@@ -1,4 +1,4 @@
-package enginenodes
+package backgrounds
 
 import (
 	"image/color"
@@ -10,7 +10,7 @@ type Background struct {
 	Color color.RGBA
 }
 
-func (b Background) Init(color color.RGBA) *Background {
+func (Background) Init(color color.RGBA) *Background {
 	return &Background{
 		Color: color,
 	}

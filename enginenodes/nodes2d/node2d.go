@@ -14,13 +14,19 @@ type Node2d struct {
 	GlobalScale    rl.Vector2
 }
 
-func Init(position rl.Vector2) *Node2d {
+func (Node2d) Init(position rl.Vector2) *Node2d {
 	return &Node2d{
 		LocalPosition:  position,
 		GlobalPosition: rl.NewVector2(0, 0),
 		LocalScale:     rl.NewVector2(1, 1),
 		GlobalScale:    rl.NewVector2(1, 1),
 	}
+}
+
+func (Node2d) InitWithScale(position, scale rl.Vector2) *Node2d {
+	n2d := Node2d{}.Init(position)
+	n2d.SetScale(scale)
+	return n2d
 }
 
 func (n *Node2d) SetScale(newScale rl.Vector2) {
