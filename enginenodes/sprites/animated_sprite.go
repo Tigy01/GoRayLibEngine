@@ -23,8 +23,8 @@ func (AnimatedSprite) Init(sprite *Sprite, currentFrame, frameCount int) *Animat
 func (s *AnimatedSprite) Center() {
 	s.Offset(
 		rl.NewVector2(
-			(0 - s.getFrameSize()/2),
-			(0 - float32(s.Texture.Height)/2),
+			(0 - s.getFrameSize()/2) * s.LocalScale.X,
+			(0 - float32(s.Texture.Height)/2) * s.LocalScale.Y,
 		),
 	)
 }
