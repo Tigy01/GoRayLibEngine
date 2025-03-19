@@ -11,12 +11,13 @@ import (
 type Sprite struct {
 	scenes.Scene
 	*nodes2d.Node2d
-	texture rl.Texture2D
+	Texture rl.Texture2D
+	Hidden  bool
 }
 
 func (Sprite) Init(path string, position rl.Vector2) *Sprite {
 	return &Sprite{
-		texture: rl.LoadTexture(path),
+		Texture: rl.LoadTexture(path),
 		Node2d:  nodes2d.Init(position),
 	}
 }
@@ -24,13 +25,10 @@ func (Sprite) Init(path string, position rl.Vector2) *Sprite {
 func (s Sprite) Process(delta float32) {}
 
 func (s *Sprite) Center() {
-	w := s.texture.Width
-	h := s.texture.Height
-
 	s.Offset(
 		rl.NewVector2(
-			0-float32(w)/2,
-			0-float32(h)/2,
+			0-float32(s.Texture.Width)/2,
+			0-float32(s.Texture.Height)/2,
 		),
 	)
 }
@@ -40,8 +38,12 @@ func (s *Sprite) Offset(offset rl.Vector2) {
 }
 
 func (s Sprite) Draw() {
+	if s.Hidden {
+		return
+	}
+
 	rl.DrawTexturePro(
-		s.texture,
+		s.Texture,
 		s.getSourceRec(),
 		s.getDestRec(),
 		rl.NewVector2(0, 0),
@@ -68,11 +70,11 @@ func (s Sprite) getDestRec() rl.Rectangle {
 }
 
 func (s Sprite) getSourceRec() rl.Rectangle {
-	return rl.NewRectangle(0, 0, float32(s.texture.Width), float32(s.texture.Height))
+	return rl.NewRectangle(0, 0, float32(s.Texture.Width), float32(s.Texture.Height))
 }
 
 func (s *Sprite) Destroy() {
-	rl.UnloadTexture(s.texture)
+	rl.UnloadTexture(s.Texture)
 }
 
 func (s Sprite) Input() {
