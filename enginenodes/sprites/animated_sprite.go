@@ -23,8 +23,8 @@ func (AnimatedSprite) Init(sprite *Sprite, currentFrame, frameCount int) *Animat
 func (s *AnimatedSprite) Center() {
 	s.Offset(
 		rl.NewVector2(
-			(0 - s.getFrameSize()/2) * s.LocalScale.X,
-			(0 - float32(s.Texture.Height)/2) * s.LocalScale.Y,
+			(0 - s.getFrameSize()/2 * s.LocalScale.X),
+			(0 - float32(s.Texture.Height)/2 * s.LocalScale.Y),
 		),
 	)
 }
@@ -53,6 +53,15 @@ func (s AnimatedSprite) getFrameSize() (frameSize float32) {
 func (s AnimatedSprite) getSourceRec() rl.Rectangle {
 	framePosition := s.getFrameSize() * float32(s.CurrentFrame)
 	return rl.NewRectangle(framePosition, 0, s.getFrameSize(), float32(s.Texture.Height))
+}
+
+func (s AnimatedSprite) getDestRec() rl.Rectangle {
+	return rl.NewRectangle(
+		s.Node2d.GlobalPosition.X,
+		s.Node2d.GlobalPosition.Y,
+		s.getFrameSize()*s.LocalScale.X,
+		float32(s.Texture.Height)*s.LocalScale.Y,
+	)
 }
 
 func (s AnimatedSprite) Input() {}

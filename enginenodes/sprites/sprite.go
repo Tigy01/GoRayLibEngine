@@ -65,7 +65,10 @@ func (s *Sprite) GetChildrenTree() scenes.Hierarchy {
 
 func (s Sprite) getDestRec() rl.Rectangle {
 	return rl.NewRectangle(
-		s.Node2d.GlobalPosition.X, s.Node2d.GlobalPosition.Y, s.LocalScale.X, s.LocalScale.Y,
+		s.Node2d.GlobalPosition.X, 
+        s.Node2d.GlobalPosition.Y, 
+        float32(s.Texture.Width) * s.LocalScale.X, 
+        float32(s.Texture.Height) * s.LocalScale.Y,
 	)
 }
 
