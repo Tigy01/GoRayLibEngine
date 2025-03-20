@@ -7,7 +7,7 @@ type Node interface {
 	Destroy()
 }
 
-func GetNodePtr[T interface {
+func AsNodePtr[T interface {
 	*U
 	Node
 }, U any](n T) *Node {

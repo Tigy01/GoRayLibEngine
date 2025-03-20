@@ -9,7 +9,6 @@ import (
 )
 
 type Sprite struct {
-	scenes.Scene
 	*nodes2d.Node2d
 	Texture rl.Texture2D
 	Hidden  bool
@@ -22,19 +21,22 @@ func (Sprite) Init(path string, node2d *nodes2d.Node2d) *Sprite {
 	}
 }
 
-func (s Sprite) Process(delta float32) {}
-
-func (s *Sprite) Center() {
-	s.Offset(
-		rl.NewVector2(
-			(0 - float32(s.Texture.Width)/2),
-			(0 - float32(s.Texture.Height)/2),
-		),
-	)
+func (s *Sprite) Destroy() {
+	rl.UnloadTexture(s.Texture)
 }
 
-func (s *Sprite) Offset(offset rl.Vector2) {
-	s.Node2d.LocalPosition = rl.Vector2Add(s.Node2d.LocalPosition, offset)
+func (s Sprite) Process(delta float32) {}
+func (s Sprite) Input() {}
+
+func (s *Sprite) GetChildrenTree() scenes.Hierarchy {
+	return scenes.Hierarchy{
+		Scene: scenes.AsScenePtr(s),
+		Children: []*scenes.Tree{
+			{
+				Value: nodes.AsNodePtr(s.Node2d),
+			},
+		},
+	}
 }
 
 func (s Sprite) Draw() {
@@ -52,23 +54,12 @@ func (s Sprite) Draw() {
 	)
 }
 
-func (s *Sprite) GetChildrenTree() scenes.Hierarchy {
-	return scenes.Hierarchy{
-		Scene: scenes.AsScenePtr(s),
-		Children: []*scenes.Tree{
-			{
-				Value: nodes.GetNodePtr(s.Node2d),
-			},
-		},
-	}
-}
-
 func (s Sprite) getDestRec() rl.Rectangle {
 	return rl.NewRectangle(
-		s.Node2d.GlobalPosition.X, 
-        s.Node2d.GlobalPosition.Y, 
-        float32(s.Texture.Width) * s.LocalScale.X, 
-        float32(s.Texture.Height) * s.LocalScale.Y,
+		s.Node2d.GlobalPosition.X,
+		s.Node2d.GlobalPosition.Y,
+		float32(s.Texture.Width)*s.LocalScale.X,
+		float32(s.Texture.Height)*s.LocalScale.Y,
 	)
 }
 
@@ -76,9 +67,15 @@ func (s Sprite) getSourceRec() rl.Rectangle {
 	return rl.NewRectangle(0, 0, float32(s.Texture.Width), float32(s.Texture.Height))
 }
 
-func (s *Sprite) Destroy() {
-	rl.UnloadTexture(s.Texture)
+func (s *Sprite) Center() {
+	s.Offset(
+		rl.NewVector2(
+			(0 - float32(s.Texture.Width)/2),
+			(0 - float32(s.Texture.Height)/2),
+		),
+	)
 }
 
-func (s Sprite) Input() {
+func (s *Sprite) Offset(offset rl.Vector2) {
+	s.Node2d.LocalPosition = rl.Vector2Add(s.Node2d.LocalPosition, offset)
 }

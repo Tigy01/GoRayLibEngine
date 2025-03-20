@@ -20,14 +20,9 @@ func (AnimatedSprite) Init(sprite *Sprite, currentFrame, frameCount int) *Animat
 	}
 }
 
-func (s *AnimatedSprite) Center() {
-	s.Offset(
-		rl.NewVector2(
-			(0 - s.getFrameSize()/2 * s.LocalScale.X),
-			(0 - float32(s.Texture.Height)/2 * s.LocalScale.Y),
-		),
-	)
-}
+func (s AnimatedSprite) Input() {}
+
+func (s AnimatedSprite) Process(delta float32) {}
 
 func (s *AnimatedSprite) Destroy() {}
 
@@ -64,18 +59,23 @@ func (s AnimatedSprite) getDestRec() rl.Rectangle {
 	)
 }
 
-func (s AnimatedSprite) Input() {}
-
-func (s AnimatedSprite) Process(delta float32) {}
-
 func (s *AnimatedSprite) GetChildrenTree() scenes.Hierarchy {
 	return scenes.Hierarchy{
 		Scene: scenes.AsScenePtr(s),
 		Children: []*scenes.Tree{
 			{
-				Value:    nodes.GetNodePtr(s.Sprite),
+				Value:    nodes.AsNodePtr(s.Sprite),
 				Children: s.Sprite.GetChildrenTree().Children,
 			},
 		},
 	}
+}
+
+func (s *AnimatedSprite) Center() {
+	s.Offset(
+		rl.NewVector2(
+			(0 - s.getFrameSize()/2 * s.LocalScale.X),
+			(0 - float32(s.Texture.Height)/2 * s.LocalScale.Y),
+		),
+	)
 }
